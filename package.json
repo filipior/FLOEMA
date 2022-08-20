@@ -3,18 +3,18 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "npm run development",
+    "build": "webpack --progress --config webpack.config.build.js",
     "development": "webpack serve --progress --config webpack.config.development.js",
-    "build": "webpack --progress --config webpack.config.build.js"
+    "start": "npm run development"
   },
   "author": "Filip Banasiak",
   "devDependencies": {
-    "clean-webpack-plugin": "^4.0.0",
-    "copy-webpack-plugin": "^11.0.0",
-    "mini-css-extract-plugin": "^2.6.1",
-    "webpack": "^5.73.0",
-    "webpack-cli": "^4.10.0",
-    "webpack-dev-server": "^4.9.3",
-    "webpack-merge": "^5.8.0"
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "copy-webpack-plugin": "^8.1.1",
+    "mini-css-extract-plugin": "^1.5.0",
+    "webpack": "^5.33.2",
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-merge": "^5.7.3"
   }
 }

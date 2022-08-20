@@ -7,7 +7,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'dev';
 
 const dirApp = path.join(__dirname, 'app');
-const dirAssets = path.join(__dirname, 'assets');
+const dirShared = path.join(__dirname, 'shared');
 const dirStyles = path.join(__dirname, 'styles');
 const dirNode = 'node_modules'
 
@@ -20,7 +20,7 @@ module.exports = {
     resolve: {
         modules: [
             dirApp,
-            dirAssets,
+            dirShared,
             dirStyles,
             dirNode
         ]
@@ -30,7 +30,7 @@ module.exports = {
         new webpack.DefinePlugin({
             IS_DEVELOPMENT
         }),
-
+        
         new CopyWebpackPlugin({
             patterns: [
                 {
@@ -38,6 +38,40 @@ module.exports = {
                     to: ''
                 }
             ]
+        }),
+
+        new MiniCssExtractPlugin ({
+            filename: '[name].css',
+            chukFilename: '[id].css'
         })
-    ]
+    ],
+
+    module: {
+        rules: [
+            { 
+                test: /\.js$/,
+                use: {
+                    loader: 'babel-loader'
+                }
+            },
+
+            {
+                test: /\.scss$/,
+                use: [
+                    { 
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            publicPath: ''
+                        }
+                    },
+                    {
+                        loader: 'css-loader',
+                    },
+                    {
+                        loader: 'postcss-loader',
+                    }
+                ]
+            }
+        ]
+    }
 }
