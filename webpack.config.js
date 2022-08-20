@@ -46,7 +46,7 @@ module.exports = {
 
         new MiniCssExtractPlugin ({
             filename: '[name].css',
-            chukFilename: '[id].css'
+            chunkFilename: '[id].css'
         })
     ],
 
@@ -81,7 +81,7 @@ module.exports = {
             },
 
             {
-                test: /\.jp?g|png|gif|svg|woff2?|fnt|webp)$/,
+                test: /\.(jp?g|png|gif|svg|woff2?|fnt|webp)$/,
                 loader: 'file-loader',
                 options: {
                     name (file) {
