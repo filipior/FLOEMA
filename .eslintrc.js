@@ -5,6 +5,6 @@ module.exports = {
         'IS_DEVELOPMENT': 'readonly'
     },
     parsetOptions: {
-       ecmasVersion: '2020' 
+       ecmasVersion: '2020'
     }
 }
