@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
 
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'dev';
 
@@ -31,7 +32,7 @@ module.exports = {
         new webpack.DefinePlugin({
             IS_DEVELOPMENT
         }),
-        
+
         new CopyWebpackPlugin({
             patterns: [
                 {
@@ -62,7 +63,7 @@ module.exports = {
 
     module: {
         rules: [
-            { 
+            {
                 test: /\.js$/,
                 use: {
                     loader: 'babel-loader'
@@ -72,7 +73,7 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: [
-                    { 
+                    {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
                             publicPath: ''
@@ -121,5 +122,10 @@ module.exports = {
                 exclude: /node_modules/
             }
         ]
-    }
+    },
+
+    optimization: {
+        minimize: true,
+        minimizer: [new TerserPlugin()],
+      },
 }
