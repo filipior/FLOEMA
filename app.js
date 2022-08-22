@@ -1,15 +1,16 @@
 require('dotenv').config()
 
-const express = require('express')
-const app = express()
+const fetch = require('node-fetch')
 const path = require('path')
-const port = 3000
+const express = require('express')
+
+const app = express()
+const port = process.env.PORT || 3000
 
 const Prismic = require('@prismicio/client')
 const PrismicH = require('@prismicio/helpers')
 
 // Initialize the prismic.io api
-
 const initApi = (req) => {
   return Prismic.createClient(process.env.PRISMIC_ENDPOINT, {
     accessToken: process.env.PRISMIC_ACCESS_TOKEN,
@@ -19,7 +20,6 @@ const initApi = (req) => {
 }
 
 // Link Resolver
-
 const HandleLinkResolver = (doc) => {
   // Define the url depending on the document type
   //   if (doc.type === 'page') {
@@ -32,8 +32,7 @@ const HandleLinkResolver = (doc) => {
   return '/'
 }
 
-// Middleware
-
+// Middleware to inject prismic context
 app.use((req, res, next) => {
   res.locals.ctx = {
     endpoint: process.env.PRISMIC_ENDPOINT,
@@ -60,26 +59,12 @@ const handleRequest = async (api) => {
 
   const assets = []
 
-  home.data.gallery.forEach((item) => {
-    assets.push(item.image.url)
-  })
-
-  about.data.gallery.forEach((item) => {
-    assets.push(item.image.url)
-  })
-
   about.data.body.forEach((section) => {
     if (section.slice_type === 'gallery') {
       section.items.forEach((item) => {
         assets.push(item.image.url)
       })
     }
-  })
-
-  collections.forEach((collection) => {
-    collection.data.products.forEach((item) => {
-      assets.push(item.products_product.data.image.url)
-    })
   })
 
   return {

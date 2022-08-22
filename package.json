@@ -32,6 +32,7 @@
     "imagemin": "^8.0.1",
     "imagemin-optipng": "^8.0.0",
     "mini-css-extract-plugin": "^1.6.2",
+    "node-fetch": "^2.6.7",
     "postcss-loader": "^7.0.1",
     "sass": "^1.54.5",
     "sass-loader": "^13.0.2",
